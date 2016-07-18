@@ -29,5 +29,8 @@ module.exports = {
   },
   plugins: [
     new StringReplacePlugin()
-  ]
+  ],
+	externals: {
+    	'lodash': '_'
+	}
 };

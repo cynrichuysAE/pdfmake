@@ -3,8 +3,6 @@
 
 var _ = require('lodash');
 
-_.noConflict();
-
 function FontWrapper(pdfkitDoc, path, fontName){
 	this.MAX_CHAR_TYPES = 92;
 

@@ -5,7 +5,7 @@
 
 // Ensure the browser provides the level of support needed
 if ( ! Object.keys ) {
-	return;
+	throw 'Browser not supported';
 }
 
 var PdfPrinter = require('../printer');
@@ -56,20 +56,20 @@ Document.prototype.open = function(message) {
 		// we have to open the window immediately and store the reference
 	// otherwise popup blockers will stop us
 	var win = window.open('', '_blank');
-	
+
 	try {
 		this.getBuffer(function (result) {
 			var blob;
 			try {
 				blob = new Blob([result], { type: 'application/pdf' });
 			} catch (e) {
-				// Old browser which can't handle it without making it an byte array (ie10) 
+				// Old browser which can't handle it without making it an byte array (ie10)
 				if (e.name == "InvalidStateError") {
 					var byteArray = new Uint8Array(result);
 					blob = new Blob([byteArray.buffer], { type: 'application/pdf' });
 				}
 			}
-			
+
 			if (blob) {
 				var urlCreator = window.URL || window.webkitURL;
 				var pdfUrl = urlCreator.createObjectURL( blob );
@@ -89,20 +89,20 @@ Document.prototype.print = function() {
 		// we have to open the window immediately and store the reference
 	// otherwise popup blockers will stop us
 	var win = window.open('', '_blank');
-	
+
 	try {
 		this.getBuffer(function (result) {
 			var blob;
 			try {
 				blob = new Blob([result], { type: 'application/pdf' });
 			} catch (e) {
-				// Old browser which can't handle it without making it an byte array (ie10) 
+				// Old browser which can't handle it without making it an byte array (ie10)
 				if (e.name == "InvalidStateError") {
 					var byteArray = new Uint8Array(result);
 					blob = new Blob([byteArray.buffer], { type: 'application/pdf' });
 				}
 			}
-			
+
 			if (blob) {
 				var urlCreator = window.URL || window.webkitURL;
 				var pdfUrl = urlCreator.createObjectURL( blob );
@@ -130,7 +130,7 @@ Document.prototype.download = function(defaultFileName, cb) {
            blob = new Blob([result], { type: 'application/pdf' });
        }
        catch (e) {
-           // Old browser which can't handle it without making it an byte array (ie10) 
+           // Old browser which can't handle it without making it an byte array (ie10)
            if (e.name == "InvalidStateError") {
                var byteArray = new Uint8Array(result);
                blob = new Blob([byteArray.buffer], { type: 'application/pdf' });

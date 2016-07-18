@@ -4,8 +4,6 @@
 var _ = require('lodash');
 var FontWrapper = require('./fontWrapper');
 
-_.noConflict();
-
 function typeName(bold, italics){
 	var type = 'normal';
 	if (bold && italics) type = 'bolditalics';
