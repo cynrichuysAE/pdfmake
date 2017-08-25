@@ -1,3 +1,6 @@
+/* jslint node: true */
+'use strict';
+
 var assert = require('assert');
 var _ = require('lodash');
 var sizes = require('../../src/standardPageSizes');
@@ -176,11 +179,8 @@ describe('Integration test: columns', function () {
 		]);
 		assert.deepEqual(testHelper.getInlineTexts(pages, {page: 0, item: 0}).join(''), 'auto ');
 		assert.deepEqual(testHelper.getInlineTexts(pages, {page: 0, item: 1}).join(''), 'column');
-		assert.deepEqual(testHelper.getInlineTexts(pages, {
-			page: 0,
-			item: 2
-		}).join(''), 'This is a star-sized column. It should get ');
-		assert.deepEqual(testHelper.getInlineTexts(pages, {page: 0, item: 3}).join(''), 'the remaining space divided by the number');
+		assert.deepEqual(testHelper.getInlineTexts(pages, {page: 0, item: 2}).join(''), 'This is a star-sized column. It should get the ');
+		assert.deepEqual(testHelper.getInlineTexts(pages, {page: 0, item: 3}).join(''), 'remaining space divided by the number');
 		assert.deepEqual(testHelper.getInlineTexts(pages, {page: 0, item: 4}).join(''), 'this one');
 	});
 
@@ -219,6 +219,21 @@ describe('Integration test: columns', function () {
 
 		assert.deepEqual(testHelper.getInlineTexts(pages, {page: 0, item: 0}).join(''), 'val');
 		assert.deepEqual(testHelper.getInlineTexts(pages, {page: 0, item: 1}).join(''), 'val');
+	});
+
+	it('renders empty column lists', function () {
+		var dd = {
+			content: [
+				{columns: []},
+				{columns: [
+						{text: _.map(new Array(80), () => 'Lorem ipsum')}
+					]
+				},
+			]
+		};
+		var pages = testHelper.renderPages('A6', dd);
+
+		assert.deepEqual(pages.length, 2);
 	});
 
 	it('render nested columns', function () {

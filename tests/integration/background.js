@@ -1,6 +1,8 @@
+/* jslint node: true */
+'use strict';
+
 var assert = require('assert');
 var _ = require('lodash');
-var sizes = require('../../src/standardPageSizes');
 
 var integrationTestHelper = require('./integrationTestHelper');
 
@@ -13,7 +15,7 @@ describe('Integration test: background', function () {
 			background: function (page) {
 				return [
 					'Background paragraph on page ' + page
-				]
+				];
 			},
 			content: [
 				'First page',

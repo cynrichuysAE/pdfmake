@@ -1,3 +1,6 @@
+/* jslint node: true */
+'use strict';
+
 var assert = require('assert');
 var _ = require('lodash');
 var sizes = require('../../src/standardPageSizes');
@@ -13,7 +16,7 @@ describe('Integration test: tables', function () {
 	}
 
 	function getCells(pages, options) {
-		return _.select(pages[options.pageNumber].items, {type: 'line'});
+		return _.filter(pages[options.pageNumber].items, {type: 'line'});
 	}
 
 	var TABLE_PADDING_X = 4;
@@ -196,7 +199,7 @@ describe('Integration test: tables', function () {
 		assert.deepEqual(getColumnText(lines, {cell: 1}), 'C2');
 
 		var starWidth = sizes.A6[0] - (testHelper.MARGINS.left + testHelper.MARGINS.right) - definedWidth - 4 * TABLE_PADDING_X - 3 * TABLE_BORDER_STRENGTH;
-		assert.equal(lines[1].item.maxWidth, starWidth)
+		assert.equal(lines[1].item.maxWidth, starWidth);
 	});
 
 	it('renders a simple table with auto width', function () {
@@ -234,7 +237,7 @@ describe('Integration test: tables', function () {
 		assert.deepEqual(getColumnText(lines, {cell: 1}), 'Column 2');
 
 		var autoWidth = testHelper.getWidthOfString('Column 2');
-		assert.equal(lines[1].item.maxWidth, autoWidth)
+		assert.equal(lines[1].item.maxWidth, autoWidth);
 	});
 
 	it('renders a simple table with colspan', function () {
